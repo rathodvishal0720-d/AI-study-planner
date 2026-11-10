@@ -1,0 +1,1 @@
+# No external packages required. ai_scheduler.py uses the Python standard library only (Python 3.8+).

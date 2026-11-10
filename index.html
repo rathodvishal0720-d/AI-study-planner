@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Study Planner</title>
+<link rel="icon" href="assets/favicon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<aside id="side">
+  <h1>📚 AI Study Planner</h1>
+  <nav>
+    <button data-p="dashboard" class="on">🏠 Dashboard</button>
+    <button data-p="subjects">📘 My Subjects</button>
+    <button data-p="planner">🤖 AI Study Planner</button>
+    <button data-p="tasks">✅ Study Tasks</button>
+    <button data-p="timer">⏱️ Study Timer</button>
+    <button data-p="progress">📈 Progress Report</button>
+    <button data-p="settings">⚙️ Settings</button>
+  </nav>
+  <p class="dev">Developed by<br><b>Vishal S. Rathod</b></p>
+</aside>
+<main>
+<button id="menu" aria-label="Menu">☰</button>
+
+<section id="dashboard" class="on">
+  <h2>Dashboard</h2>
+  <div id="stats" class="cards"></div>
+  <div class="panel"><h3>Today's Study Progress</h3><div class="bar"><i id="dayBar"></i></div><p id="dayTxt"></p></div>
+  <div class="grid">
+    <div class="panel"><h3>Upcoming Exams</h3><ul id="exams"></ul></div>
+    <div class="panel"><h3>🤖 Recommendations</h3><ul class="recs"></ul></div>
+  </div>
+</section>
+
+<section id="subjects">
+  <h2>My Subjects</h2>
+  <form id="sf" class="panel form">
+    <input type="hidden" id="sid">
+    <label>Subject name<input id="sn" maxlength="40" required></label>
+    <label>Difficulty<select id="sd"><option>Easy</option><option selected>Medium</option><option>Hard</option></select></label>
+    <label>Exam date<input type="date" id="se" required></label>
+    <label>Priority<select id="sp"><option>Low</option><option selected>Medium</option><option>High</option></select></label>
+    <div class="row"><button class="btn" id="sbtn">Add Subject</button><button type="reset" class="btn ghost">Cancel</button></div>
+  </form>
+  <div class="row"><input id="q" placeholder="🔍 Search subjects..."><select id="fd"><option value="">All difficulties</option><option>Easy</option><option>Medium</option><option>Hard</option></select></div>
+  <div class="panel scroll"><table id="subList"></table></div>
+</section>
+
+<section id="planner">
+  <h2>AI Study Planner</h2>
+  <form id="pf" class="panel form">
+    <label>Available daily study hours<input type="number" id="ph" min="1" max="12" step="0.5" required></label>
+    <label>Preferred study time<select id="pp"><option value="morning">Morning (8:00)</option><option value="afternoon">Afternoon (13:00)</option><option value="evening">Evening (18:00)</option></select></label>
+    <div class="row"><button class="btn">Generate Timetable</button><button type="button" id="csv" class="btn ghost">⬇ Export CSV</button></div>
+    <p class="note">Uses your subjects (difficulty, exam date, priority). Rules: weight = difficulty × priority × exam urgency; sessions ≤ 50 min with 10-min breaks (20-min after every 3rd session).</p>
+  </form>
+  <div id="planOut"></div>
+</section>
+
+<section id="tasks">
+  <h2>Study Tasks</h2>
+  <form id="tf" class="panel form">
+    <input type="hidden" id="tid">
+    <label>Task<input id="tt" maxlength="80" required></label>
+    <label>Subject<select id="ts"></select></label>
+    <label>Deadline<input type="date" id="tdue" required></label>
+    <div class="row"><button class="btn" id="tbtn">Add Task</button><button type="reset" class="btn ghost">Cancel</button></div>
+  </form>
+  <div class="row"><button class="btn ghost flt on" data-f="all">All</button><button class="btn ghost flt" data-f="pending">Pending</button><button class="btn ghost flt" data-f="done">Completed</button></div>
+  <ul id="taskList" class="panel"></ul>
+</section>
+
+<section id="timer">
+  <h2>Study Timer</h2>
+  <div class="panel center">
+    <label>Studying<select id="tsub"></select></label>
+    <p id="tmode"></p><div id="tdisp">25:00</div>
+    <div class="row c"><button class="btn" id="tstart">Start</button><button class="btn ghost" id="tpause">Pause</button><button class="btn ghost" id="treset">Reset</button></div>
+    <p id="tcount"></p>
+  </div>
+</section>
+
+<section id="progress">
+  <h2>Progress Report</h2>
+  <div class="cards" id="pstats"></div>
+  <div class="grid">
+    <div class="panel"><h3>Daily Study (last 7 days)</h3><canvas id="c1"></canvas></div>
+    <div class="panel"><h3>Subject-wise Progress</h3><canvas id="c2"></canvas></div>
+    <div class="panel"><h3>Tasks</h3><canvas id="c3"></canvas></div>
+    <div class="panel"><h3>🤖 Recommendations</h3><ul class="recs"></ul></div>
+  </div>
+</section>
+
+<section id="settings">
+  <h2>Settings</h2>
+  <div class="panel form">
+    <label class="inline"><input type="checkbox" id="dark"> Dark mode</label>
+    <div class="row"><button class="btn" id="notif">🔔 Enable deadline notifications</button><button class="btn danger" id="clear">Clear all data</button></div>
+  </div>
+</section>
+</main>
+<div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
